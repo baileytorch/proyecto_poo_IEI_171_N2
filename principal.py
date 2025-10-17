@@ -1,8 +1,10 @@
 from datos.obtener_datos import obtener_lista_objetos
-from datos.insertar_datos import insertar_marca
+from datos.insertar_datos import insertar_marca, insertar_direccion
 from prettytable import PrettyTable
 from modelos.comuna import Comuna
 from modelos.marca import Marca
+from auxiliares.normalizar_strings import normalizar_string
+from negocio.negocio_comunas import obtener_id_comuna
 
 
 def obtener_listado_comunas():
@@ -36,7 +38,20 @@ def guardar_nueva_marca():
         insertar_marca(marca, pais)
 
 
+def guardar_nueva_direccion():
+    id_comuna = 0
+    buscar_comuna = input('Ingrese nombre de comuna: ')
+    id_comuna = obtener_id_comuna(buscar_comuna)
+    calle = input('Ingrese calle: ')
+    numero = input('Ingrese número: ')
+    departamento = input('Ingrese departamento: ')
+    detalles = input('Ingrese detalles necesarios: ')
+    if calle != '' and id_comuna != 0:
+        insertar_direccion(calle, numero, departamento, detalles, id_comuna)
+
+
 # obtener_listado_marcas()
 # print()
 # obtener_listado_comunas()
-guardar_nueva_marca()
+# guardar_nueva_marca()
+guardar_nueva_direccion()

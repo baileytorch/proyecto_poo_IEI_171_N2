@@ -1,5 +1,6 @@
 from modelos.marca import Marca
 from modelos.comuna import Comuna
+from modelos.direccion import Direccion
 from datos.conexion import Session
 
 sesion = Session()
@@ -33,5 +34,23 @@ def insertar_comuna(codigo, comuna):
     except Exception as e:
         sesion.rollback()
         print(f"Error al guardar la comuna: {e}")
+    finally:
+        sesion.close()
+
+
+def insertar_direccion(dir_calle, dir_numero, dir_departamento, dir_detalles, dir_id_comuna):
+    nueva_direccion = Direccion(
+        calle=dir_calle.title(),
+        numero=dir_numero.title(),
+        departamento=dir_departamento,
+        detalles=dir_detalles,
+        id_comuna=dir_id_comuna)
+    sesion.add(nueva_direccion)
+    try:
+        sesion.commit()
+        print("La dirección se ha guardado correctamente.")
+    except Exception as e:
+        sesion.rollback()
+        print(f"Error al guardar la direccion: {e}")
     finally:
         sesion.close()
