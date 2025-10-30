@@ -5,6 +5,6 @@ sesion = Session()
 
 
 def obtener_lista_objetos(objeto):
-    listado_objetos = sesion.query(objeto).all()
+    listado_objetos = sesion.query(objeto).filter_by(habilitado=1).all()
     if len(listado_objetos) > 0:
         return listado_objetos
